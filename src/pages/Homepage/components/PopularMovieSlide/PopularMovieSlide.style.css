@@ -1,0 +1,9 @@
+.popular-movie-slide {
+    margin-top: 3rem;
+    padding: 0 2rem;
+}
+
+.carousel-container {
+    overflow: hidden;
+    height: 440px;
+}
