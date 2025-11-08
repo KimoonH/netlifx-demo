@@ -59,3 +59,56 @@
 .info-item {
     margin-bottom: 0.3rem;
 }
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+    .movie-card {
+        width: 180px;
+        height: 270px;
+    }
+
+    .movie-title {
+        font-size: 0.9rem;
+    }
+
+    .movie-info {
+        font-size: 0.75rem;
+    }
+
+    .genre-badges .badge {
+        font-size: 0.7rem;
+    }
+}
+
+/* 모바일 (480px 이하) */
+@media (max-width: 480px) {
+    .movie-card {
+        width: 150px;
+        height: 225px;
+    }
+
+    .overlay {
+        padding: 0.75rem;
+    }
+
+    .movie-title {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 1;
+    }
+
+    .movie-info {
+        font-size: 0.7rem;
+    }
+
+    .genre-badges {
+        display: none;
+    }
+
+    .info-item {
+        margin-bottom: 0.2rem;
+    }
+
+    .movie-card:hover {
+        transform: scale(1.05);
+    }
+}

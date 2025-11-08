@@ -1,8 +1,9 @@
 .banner {
     height: 56vh;
-    background-position: left;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
 
 .banner:before {
@@ -25,4 +26,107 @@
 
 .banner-text-area > * {
     z-index: 2;
+}
+
+.banner-text-area h1 {
+    margin-bottom: 1rem;
+}
+
+.banner-text-area p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+}
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+    .banner {
+        height: 45vh;
+    }
+
+    .banner:before {
+        height: 45vh;
+    }
+
+    .banner-text-area {
+        width: 70%;
+        padding: 1.5rem;
+    }
+
+    .banner-text-area h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .banner-text-area p {
+        font-size: 0.9rem;
+        -webkit-line-clamp: 2;
+    }
+}
+
+/* 모바일 (480px 이하) */
+@media (max-width: 480px) {
+    .banner {
+        height: 50vh;
+        display: flex;
+        align-items: flex-end;
+        background-position: center top;
+    }
+
+    .banner:before {
+        height: 50vh;
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+    }
+
+    .banner-text-area {
+        width: 100%;
+        padding: 1rem;
+        justify-content: flex-end;
+        height: auto;
+        padding-bottom: 2rem;
+        max-height: 50%;
+        overflow: hidden;
+    }
+
+    .banner-text-area h1 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+    }
+
+    .banner-text-area p {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 3;
+        line-height: 1.4;
+        margin-bottom: 0;
+    }
+}
+
+/* 아이폰 12 Pro 및 유사 크기 (390px) */
+@media (max-width: 390px) {
+    .banner {
+        height: 45vh;
+    }
+
+    .banner:before {
+        height: 45vh;
+    }
+
+    .banner-text-area {
+        padding: 0.75rem 1rem 1.5rem;
+    }
+
+    .banner-text-area h1 {
+        font-size: 1.1rem;
+    }
+
+    .banner-text-area p {
+        font-size: 0.8rem;
+        -webkit-line-clamp: 2;
+    }
 }

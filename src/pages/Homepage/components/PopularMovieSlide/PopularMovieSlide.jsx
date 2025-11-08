@@ -1,6 +1,6 @@
 import React from "react";
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
@@ -10,7 +10,13 @@ const PopularMovieSlide = () => {
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="loading-spinner">
+        <Spinner animation="border" variant="danger" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
