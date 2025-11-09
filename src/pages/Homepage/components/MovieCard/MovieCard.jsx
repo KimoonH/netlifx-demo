@@ -19,7 +19,7 @@ const MovieCard = ({ movie }) => {
             </Badge>
           ))}
         </div>
-        <Card.Text className="movie-info">
+        <div className="movie-info">
           <div className="info-item">
             <strong>⭐ Rating:</strong> {movie.vote_average.toFixed(1)}
           </div>
@@ -34,7 +34,7 @@ const MovieCard = ({ movie }) => {
               {movie.adult ? "18+" : "All Ages"}
             </Badge>
           </div>
-        </Card.Text>
+        </div>
       </Card.ImgOverlay>
     </Card>
   );
