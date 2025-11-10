@@ -12,3 +12,4 @@ export const useUpcomingMoviesQuery = () => {
         select: (result) => result.data,
     })
 }
+
