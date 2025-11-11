@@ -1,0 +1,94 @@
+/* MoviePage 전체 배경 */
+.movie-page-container {
+  min-height: 100vh;
+  background-color: #000;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.filter-section {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.filter-container {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.movie-page-container .filter-container h5 {
+  color: #fff;
+  font-weight: bold;
+}
+
+.movie-page-container .filter-container h6 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.movie-page-container .filter-container .btn {
+  color: #e50914;
+  border-color: #e50914;
+}
+
+.movie-page-container .filter-container .btn:hover {
+  background-color: #e50914;
+  color: #fff;
+}
+
+.genre-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.genre-badge {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.genre-badge:hover {
+  transform: scale(1.05);
+}
+
+/* 페이지네이션 스타일 */
+.movie-page-container .pagination {
+  margin-top: 20px;
+}
+
+.movie-page-container .pagination .page-link {
+  background-color: #1a1a1a;
+  border-color: #333;
+  color: #fff;
+}
+
+.movie-page-container .pagination .page-link:hover {
+  background-color: #e50914;
+  border-color: #e50914;
+  color: #fff;
+}
+
+.movie-page-container .pagination .page-item.active .page-link {
+  background-color: #e50914;
+  border-color: #e50914;
+  color: #fff;
+}
+
+.movie-page-container .pagination .page-item.disabled .page-link {
+  background-color: #0a0a0a;
+  border-color: #222;
+  color: #666;
+}
+
+@media (max-width: 991px) {
+  .filter-section {
+    position: relative;
+    top: 0;
+  }
+}

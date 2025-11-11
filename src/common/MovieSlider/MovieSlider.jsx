@@ -1,21 +1,11 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Alert, Spinner } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import MovieCard from "../../pages/Homepage/components/MovieCard/MovieCard";
 import "./MovieSlider.style.css";
 
-const MovieSlider = ({ title, movies, isLoading, isError, error, responsive }) => {
-  if (isLoading) {
-    return (
-      <div className="loading-spinner">
-        <Spinner animation="border" variant="danger" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </div>
-    );
-  }
-
+const MovieSlider = ({ title, movies, isError, error, responsive }) => {
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }

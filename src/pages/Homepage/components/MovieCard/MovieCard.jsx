@@ -1,10 +1,12 @@
 import React from "react";
 import { Badge, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./MovieCard.style.css";
 import { useMovieGenreQuery } from "../../../../hooks/useMovieGenre";
 
 const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
+  const navigate = useNavigate();
 
   const showGenre = (genreIdList) => {
     if (!genreData) return [];
@@ -14,12 +16,27 @@ const MovieCard = ({ movie }) => {
     });
     return genreNameList;
   };
+
+  const getImageUrl = () => {
+    if (movie.poster_path) {
+      return `https://media.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`;
+    }
+    return "https://via.placeholder.com/220x330/1a1a1a/white?text=No+Image";
+  };
+
+  const handleCardClick = () => {
+    navigate(`/movies/${movie.id}`);
+  };
+
   return (
-    <Card className="movie-card">
+    <Card className="movie-card" onClick={handleCardClick} style={{ cursor: "pointer" }}>
       <Card.Img
         variant="top"
-        src={`https://media.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`}
+        src={getImageUrl()}
         alt={movie.title}
+        onError={(e) => {
+          e.target.src = "https://via.placeholder.com/220x330/1a1a1a/white?text=No+Image";
+        }}
       />
       <Card.ImgOverlay className="overlay">
         <Card.Title className="movie-title">{movie.title}</Card.Title>

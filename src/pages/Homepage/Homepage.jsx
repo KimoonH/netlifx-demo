@@ -3,10 +3,11 @@ import Banner from "./components/Banner/Banner";
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
+import "./Homepage.style.css";
 
 const Homepage = () => {
   return (
-    <div>
+    <div className="homepage-container">
       <Banner />
       <PopularMovieSlide />
       <TopRatedMovieSlide />

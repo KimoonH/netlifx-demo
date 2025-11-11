@@ -1,6 +1,14 @@
-import React, { useState } from "react";
-import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
+import React, { useState, Suspense } from "react";
+import { Navbar, Container, Nav, Form, Button, Spinner } from "react-bootstrap";
 import { Outlet, Link, useNavigate } from "react-router-dom";
+
+const LoadingFallback = () => (
+  <div className="loading-spinner">
+    <Spinner animation="border" variant="danger" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>
+  </div>
+);
 
 const AppLayout = () => {
   const [keyword, setKeyword] = useState("");
@@ -55,7 +63,9 @@ const AppLayout = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Outlet />
+      <Suspense fallback={<LoadingFallback />}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
