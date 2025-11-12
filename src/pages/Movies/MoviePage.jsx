@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-import { useSearchParams } from "react-router-dom";
-import { Container, Row, Col, Alert, Form, Button, Badge } from "react-bootstrap";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Form, Button, Badge } from "react-bootstrap";
 import MovieCard from "../Homepage/components/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import "./MoviePage.style.css";
 
 // 경로 2 가지
@@ -12,6 +13,7 @@ import "./MoviePage.style.css";
 // keyword를 입력해서 온 경우 => keyword와 관련된 영홛르을 보여줌
 const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState("popularity.desc");
   const [selectedGenre, setSelectedGenre] = useState("");
@@ -23,6 +25,11 @@ const MoviePage = () => {
     sortBy: keyword ? undefined : sortBy, // 검색어가 있으면 API 정렬 비활성화
     genreId: selectedGenre,
   });
+
+  // 검색어가 변경되면 첫 페이지로 초기화
+  useEffect(() => {
+    setPage(1);
+  }, [keyword]);
 
   // 클라이언트 사이드 정렬 함수
   const sortMovies = (movies, sortOption) => {
@@ -81,12 +88,23 @@ const MoviePage = () => {
     setPage(1);
   };
 
+  const handleClearSearch = () => {
+    navigate("/movies");
+  };
+
   if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
+    const context = keyword ? "search" : "list";
+    return (
+      <ErrorMessage
+        error={error}
+        context={context}
+        onRetry={() => window.location.reload()}
+      />
+    );
   }
 
   return (
-    <div className="movie-page-container">
+    <div className="movie-page-container page-container">
       <Container>
       <Row>
         <Col lg={4} xs={12} className="filter-section">
@@ -140,11 +158,21 @@ const MoviePage = () => {
         <Col lg={8} xs={12}>
           {sortedMovies.length > 0 ? (
             <>
-              <div className="results-info mb-3">
+              <div className="results-info mb-3 d-flex justify-content-between align-items-center">
                 <span style={{ color: '#999', fontSize: '0.95rem' }}>
                   총 {sortedMovies.length}개의 영화
                   {keyword && ` - "${keyword}" 검색 결과`}
                 </span>
+                {keyword && (
+                  <Button
+                    variant="outline-secondary"
+                    size="sm"
+                    onClick={handleClearSearch}
+                    style={{ fontSize: '0.85rem' }}
+                  >
+                    ✕ 검색 지우기
+                  </Button>
+                )}
               </div>
               <Row>
                 {sortedMovies.map((movie, index) => (

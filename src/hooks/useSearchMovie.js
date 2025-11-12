@@ -3,15 +3,23 @@ import api from "../utils/api"
 
 const fetchSearchMovie = ({ keyword, page, sortBy, genreId }) => {
   if (keyword) {
-    // 검색어가 있을 때는 search API 사용
-    return api.get(`/search/movie?query=${keyword}&page=${page}`)
+    // 검색어가 있을 때는 search API 사용 (params로 전달하여 자동 인코딩)
+    return api.get(`/search/movie`, {
+      params: {
+        query: keyword,
+        page: page
+      }
+    })
   } else {
     // 검색어가 없을 때는 discover API를 사용하여 정렬과 필터 지원
-    let url = `/discover/movie?page=${page}&sort_by=${sortBy}`
-    if (genreId) {
-      url += `&with_genres=${genreId}`
+    const params = {
+      page: page,
+      sort_by: sortBy
     }
-    return api.get(url)
+    if (genreId) {
+      params.with_genres = genreId
+    }
+    return api.get(`/discover/movie`, { params })
   }
 }
 

@@ -17,11 +17,28 @@ const MovieCard = ({ movie }) => {
     return genreNameList;
   };
 
+  const getPlaceholderImage = () => {
+    // SVG 대체 이미지
+    const svg = `
+      <svg width="220" height="330" xmlns="http://www.w3.org/2000/svg">
+        <rect width="220" height="330" fill="#1a1a1a"/>
+        <g transform="translate(110, 140)">
+          <path d="M -30 -40 L -30 40 L 30 40 L 30 -40 Z" fill="#333" stroke="#555" stroke-width="2"/>
+          <circle cx="0" cy="-15" r="12" fill="#555"/>
+          <path d="M -20 10 L 0 30 L 20 10" fill="none" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <text x="110" y="220" font-family="Arial, sans-serif" font-size="16" fill="#666" text-anchor="middle">No Image</text>
+        <text x="110" y="240" font-family="Arial, sans-serif" font-size="14" fill="#555" text-anchor="middle">Available</text>
+      </svg>
+    `;
+    return `data:image/svg+xml;base64,${btoa(svg)}`;
+  };
+
   const getImageUrl = () => {
     if (movie.poster_path) {
       return `https://media.themoviedb.org/t/p/w220_and_h330_face${movie.poster_path}`;
     }
-    return "https://via.placeholder.com/220x330/1a1a1a/white?text=No+Image";
+    return getPlaceholderImage();
   };
 
   const handleCardClick = () => {
@@ -34,8 +51,9 @@ const MovieCard = ({ movie }) => {
         variant="top"
         src={getImageUrl()}
         alt={movie.title}
+        loading="lazy"
         onError={(e) => {
-          e.target.src = "https://via.placeholder.com/220x330/1a1a1a/white?text=No+Image";
+          e.target.src = getPlaceholderImage();
         }}
       />
       <Card.ImgOverlay className="overlay">

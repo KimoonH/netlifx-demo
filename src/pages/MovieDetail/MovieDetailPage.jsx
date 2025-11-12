@@ -7,6 +7,7 @@ import { useMovieVideosQuery } from "../../hooks/useMovieVideos";
 import { Container, Row, Col, Badge, Alert, Card, Button, Modal } from "react-bootstrap";
 import YouTube from "react-youtube";
 import MovieCard from "../Homepage/components/MovieCard/MovieCard";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import "./MovieDetailPage.style.css";
 
 const MovieDetailPage = () => {
@@ -30,7 +31,13 @@ const MovieDetailPage = () => {
   }, [id]);
 
   if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
+    return (
+      <ErrorMessage
+        error={error}
+        context="detail"
+        onRetry={() => window.location.reload()}
+      />
+    );
   }
 
   const toggleReview = (reviewId) => {
@@ -55,16 +62,33 @@ const MovieDetailPage = () => {
     return `$${budget.toLocaleString()}`;
   };
 
+  const getPlaceholderImage = () => {
+    // SVG 대체 이미지
+    const svg = `
+      <svg width="300" height="450" xmlns="http://www.w3.org/2000/svg">
+        <rect width="300" height="450" fill="#1a1a1a"/>
+        <g transform="translate(150, 200)">
+          <path d="M -40 -60 L -40 60 L 40 60 L 40 -60 Z" fill="#333" stroke="#555" stroke-width="3"/>
+          <circle cx="0" cy="-20" r="18" fill="#555"/>
+          <path d="M -30 15 L 0 45 L 30 15" fill="none" stroke="#555" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <text x="150" y="310" font-family="Arial, sans-serif" font-size="22" fill="#666" text-anchor="middle">No Image</text>
+        <text x="150" y="340" font-family="Arial, sans-serif" font-size="18" fill="#555" text-anchor="middle">Available</text>
+      </svg>
+    `;
+    return `data:image/svg+xml;base64,${btoa(svg)}`;
+  };
+
   const posterUrl = movie?.poster_path
     ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`
-    : "https://via.placeholder.com/300x450/1a1a1a/white?text=No+Image";
+    : getPlaceholderImage();
 
   const backdropUrl = movie?.backdrop_path
     ? `https://www.themoviedb.org/t/p/original${movie.backdrop_path}`
     : null;
 
   return (
-    <div className="movie-detail-page">
+    <div className="movie-detail-page page-container">
       {backdropUrl && (
         <div
           className="backdrop-container"
@@ -81,8 +105,9 @@ const MovieDetailPage = () => {
               src={posterUrl}
               alt={movie?.title}
               className="movie-poster"
+              loading="lazy"
               onError={(e) => {
-                e.target.src = "https://via.placeholder.com/300x450/1a1a1a/white?text=No+Image";
+                e.target.src = getPlaceholderImage();
               }}
             />
           </Col>
@@ -168,7 +193,15 @@ const MovieDetailPage = () => {
               )}
 
               {reviewError && (
-                <Alert variant="warning">리뷰를 불러올 수 없습니다.</Alert>
+                <Alert variant="warning" style={{ backgroundColor: 'rgba(255, 193, 7, 0.1)', borderColor: 'rgba(255, 193, 7, 0.5)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <span style={{ fontSize: '24px' }}>⚠️</span>
+                    <div>
+                      <strong>리뷰를 불러올 수 없습니다</strong>
+                      <p style={{ margin: '5px 0 0 0', fontSize: '0.9rem' }}>리뷰 정보를 가져오는 중 문제가 발생했습니다.</p>
+                    </div>
+                  </div>
+                </Alert>
               )}
 
               {!reviewLoading && reviewData?.results?.length === 0 && (

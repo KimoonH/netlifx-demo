@@ -1,14 +1,7 @@
-import React, { useState, Suspense } from "react";
-import { Navbar, Container, Nav, Form, Button, Spinner } from "react-bootstrap";
+import React, { useState } from "react";
+import { Navbar, Container, Nav, Form, Button } from "react-bootstrap";
 import { Outlet, Link, useNavigate } from "react-router-dom";
-
-const LoadingFallback = () => (
-  <div className="loading-spinner">
-    <Spinner animation="border" variant="danger" role="status">
-      <span className="visually-hidden">Loading...</span>
-    </Spinner>
-  </div>
-);
+import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 
 const AppLayout = () => {
   const [keyword, setKeyword] = useState("");
@@ -16,8 +9,13 @@ const AppLayout = () => {
 
   const searchByKeyword = (event) => {
     event.preventDefault();
-    // url을 바꿔주기
-    navigate(`/movies?q=${keyword}`);
+    // 빈 검색어 방지
+    if (keyword.trim() === "") {
+      return;
+    }
+    // url을 바꿔주기 (한글 인코딩)
+    navigate(`/movies?q=${encodeURIComponent(keyword.trim())}`);
+    setKeyword(""); // 검색 후 입력창 초기화
   };
   return (
     <div>
@@ -63,9 +61,8 @@ const AppLayout = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Suspense fallback={<LoadingFallback />}>
-        <Outlet />
-      </Suspense>
+      <Outlet />
+      <ScrollToTop />
     </div>
   );
 };

@@ -7,7 +7,7 @@ import "./Homepage.style.css";
 
 const Homepage = () => {
   return (
-    <div className="homepage-container">
+    <div className="homepage-container page-container">
       <Banner />
       <PopularMovieSlide />
       <TopRatedMovieSlide />
