@@ -2,13 +2,15 @@
     width: 220px;
     height: 330px;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
     border-radius: 8px;
     overflow: hidden;
     border: none;
     background-color: transparent;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 0 5px;
+    z-index: 1;
 }
 
 .movie-card img {
@@ -34,7 +36,7 @@
 
 .movie-card:hover {
     transform: scale(1.1) translateY(-8px);
-    z-index: 10;
+    z-index: 100;
     box-shadow: 0 12px 24px rgba(229, 9, 20, 0.5), 0 8px 16px rgba(0, 0, 0, 0.6);
 }
 
@@ -68,6 +70,7 @@
     .movie-card {
         width: 180px;
         height: 270px;
+        margin: 0 5px;
     }
 
     .movie-title {
@@ -88,6 +91,7 @@
     .movie-card {
         width: 150px;
         height: 225px;
+        margin: 0 3px;
     }
 
     .overlay {
@@ -113,6 +117,7 @@
 
     .movie-card:hover {
         transform: scale(1.05) translateY(-4px);
+        z-index: 100;
         box-shadow: 0 8px 16px rgba(229, 9, 20, 0.4), 0 4px 8px rgba(0, 0, 0, 0.5);
     }
 }

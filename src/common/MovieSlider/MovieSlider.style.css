@@ -11,8 +11,14 @@
 }
 
 .carousel-container {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
     height: 440px;
+    padding: 20px 0;
+}
+
+.movie-slider {
+    padding: 0 15px !important;
 }
 
 /* 로딩 스피너 */
@@ -37,6 +43,11 @@
 
     .carousel-container {
         height: 360px;
+        padding: 15px 0;
+    }
+
+    .movie-slider {
+        padding: 0 12px !important;
     }
 }
 
@@ -54,6 +65,11 @@
 
     .carousel-container {
         height: 300px;
+        padding: 10px 0;
+    }
+
+    .movie-slider {
+        padding: 0 8px !important;
     }
 
     .loading-spinner {
